@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,13 +34,11 @@
             margin: 20px 0;
         }
 
-        .imprimir-hide {
-            display: none;
-        }
-
         @media print {
-            .imprimir-hide {
-                display: block !important;
+            #services,
+            #line,
+            #address {
+                display: none;
             }
 
             body {
@@ -73,22 +72,22 @@
     </style>
 </head>
 <body>
-    <div id="header" class="imprimir-hide">
+    <div id="header">
         <h1>JOSEMAG Reforma de Máquinas Agrícolas Ltda</h1>
     </div>
 
-    <div id="services" class="imprimir-hide">
+    <div id="services">
         <li>Serviço de Torno</li>
         <li>Serviço de Soldas</li>
         <li>Reforma de Implementos em Geral</li>
     </div>
 
-    <div id="address" class="imprimir-hide">
+    <div id="address">
         <p>Endereço: Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG</p>
         <p>Tel. Loja: (35) 3334-1120 - Tel. Residencial: (35) 3334-1431</p>
     </div>
 
-    <div id="line" class="imprimir-hide"></div>
+    <div id="line"></div>
 
     <form id="serviceForm">
         <label for="cliente">Nome:</label>
@@ -100,9 +99,9 @@
         <label for="endereco">Endereço:</label>
         <textarea id="endereco" name="endereco" rows="2" required></textarea>
 
-        <div id="line" class="imprimir-hide"></div>
+        <div id="line"></div>
 
-        <table class="imprimir-hide">
+        <table>
             <thead>
                 <tr>
                     <th>Tipo de Serviço Prestado</th>
@@ -113,12 +112,12 @@
             <tbody id="servicosTableBody"></tbody>
         </table>
 
-        <div id="line" class="imprimir-hide"></div>
+        <div id="line"></div>
 
         <p>Total: R$ <span id="total">0.00</span></p>
 
-        <button type="button" class="imprimir-hide imprimir-botao" onclick="adicionarServico()">Adicionar Serviço</button>
-        <button type="button" class="imprimir-hide imprimir-botao" onclick="imprimirNota()">Imprimir Nota</button>
+        <button type="button" class="imprimir-botao" onclick="adicionarServico()">Adicionar Serviço</button>
+        <button type="button" class="imprimir-botao" onclick="imprimirNota()">Imprimir Nota</button>
     </form>
 
     <script>
@@ -162,49 +161,49 @@
         function imprimirNota() {
             // Obter dados do formulário
             const data = document.getElementById('data').value;
-                  const cliente = document.getElementById('cliente').value;
-        const endereco = document.getElementById('endereco').value;
+            const cliente = document.getElementById('cliente').value;
+            const endereco = document.getElementById('endereco').value;
 
-        // Obter dados dos serviços
-        const servicosTableBody = document.getElementById('servicosTableBody');
-        const rows = servicosTableBody.querySelectorAll('tr');
-        const servicos = [];
+            // Obter dados dos serviços
+            const servicosTableBody = document.getElementById('servicosTableBody');
+            const rows = servicosTableBody.querySelectorAll('tr');
+            const servicos = [];
 
-        rows.forEach(row => {
-            const cells = row.querySelectorAll('td');
-            const tipoServico = cells[0].textContent;
-            const preco = parseFloat(cells[1].textContent.replace('R$ ', ''));
-            servicos.push({ tipoServico, preco });
-        });
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const tipoServico = cells[0].textContent;
+                const preco = parseFloat(cells[1].textContent.replace('R$ ', ''));
+                servicos.push({ tipoServico, preco });
+            });
 
-        // Calcular o total
-        const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
+            // Calcular o total
+            const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
 
-        // Construir a nota
-        const notaImpressa = `
-            JOSEMAG Reforma de Máquinas Agrícolas Ltda
+            // Construir a nota
+            const notaImpressa = `
+                JOSEMAG Reforma de Máquinas Agrícolas Ltda
 
-            
-            Endereço: Av. Francisco Dias de Castro, 975 - Carmo de    Minas - MG
-            Tel. Loja: (35) 3334-1120 - Tel. Residencial: (35) 3334-1431
+                
+                Endereço: Av. Francisco Dias de Castro, 975 - Carmo de    Minas - MG
+                Tel. Loja: (35) 3334-1120 - Tel. Residencial: (35) 3334-1431
 
-            Serviços Prestados:
-            ${servicos.map(servico => `- ${servico.tipoServico}: R$ ${servico.preco.toFixed(2)}`).join('\n')}
+                Serviços Prestados:
+                ${servicos.map(servico => `- ${servico.tipoServico}: R$ ${servico.preco.toFixed(2)}`).join('\n')}
 
-            Total: R$ ${total.toFixed(2)}
+                Total: R$ ${total.toFixed(2)}
 
-            Dados do Cliente:
-            Data: ${data}
-            Nome: ${cliente}
-            Endereço: ${endereco}
-        `;
+                Dados do Cliente:
+                Data: ${data}
+                Nome: ${cliente}
+                Endereço: ${endereco}
+            `;
 
-        // Exibir o conteúdo da nota em um alerta ou imprimir na página
-        alert(notaImpressa);
+            // Exibir o conteúdo da nota em um alerta ou imprimir na página
+            alert(notaImpressa);
 
-        // Abrir a caixa de diálogo de impressão
-        window.print();
-    }
-</script> 
+            // Abrir a caixa de diálogo de impressão
+            window.print();
+        }
+    </script>
   </body>
 </html>
