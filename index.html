@@ -179,31 +179,56 @@
             // Calcular o total
             const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
 
-            // Construir a nota
-            const notaImpressa = `
-                JOSEMAG Reforma de Máquinas Agrícolas Ltda
+            function imprimirNota() {
+    // Obter dados do formulário
+    const data = document.getElementById('data').value;
+    const cliente = document.getElementById('cliente').value;
+    const endereco = document.getElementById('endereco').value;
 
-                
-                Endereço: Av. Francisco Dias de Castro, 975 - Carmo de    Minas - MG
-                Tel. Loja: (35) 3334-1120 - Tel. Residencial: (35) 3334-1431
+    // Obter dados dos serviços
+    const servicosTableBody = document.getElementById('servicosTableBody');
+    const rows = servicosTableBody.querySelectorAll('tr');
+    const servicos = [];
 
-                Serviços Prestados:
-                ${servicos.map(servico => `- ${servico.tipoServico}: R$ ${servico.preco.toFixed(2)}`).join('\n')}
+    rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const tipoServico = cells[0].textContent;
+        const preco = parseFloat(cells[1].textContent.replace('R$ ', ''));
+        servicos.push({ tipoServico, preco });
+    });
 
-                Total: R$ ${total.toFixed(2)}
+    // Calcular o total
+    const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
 
-                Dados do Cliente:
-                Data: ${data}
-                Nome: ${cliente}
-                Endereço: ${endereco}
-            `;
+    // Construir a nota
+    const notaImpressa = `
+        JOSEMAG Reforma de Máquinas Agrícolas Ltda
 
-            // Exibir o conteúdo da nota em um alerta ou imprimir na página
-            alert(notaImpressa);
+        
+        Endereço: Av. Francisco Dias de Castro, 975 - Carmo de    Minas - MG
+        Tel. Loja: (35) 3334-1120 - Tel. Residencial: (35) 3334-1431
 
-            // Abrir a caixa de diálogo de impressão
-            window.print();
-        }
-    </script>
-  </body>
-</html>
+        Serviços Prestados:
+        ${servicos.map(servico => `- ${servico.tipoServico}: R$ ${servico.preco.toFixed(2)}`).join('\n')}
+
+        Total: R$ ${total.toFixed(2)}
+
+        Dados do Cliente:
+        Data: ${data}
+        Nome: ${cliente}
+        Endereço: ${endereco}
+    `;
+
+    // Exibir o conteúdo da nota em um alerta ou imprimir na página
+    alert(notaImpressa);
+
+    // Criar uma janela para impressão
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write('<html><head><title>Nota de Serviço</title></head><body>');
+    printWindow.document.write(`<pre>${notaImpressa}</pre>`);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+
+    // Imprimir automaticamente
+    printWindow.print();
+}
