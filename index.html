@@ -157,29 +157,7 @@
             // Remover a linha
             row.parentNode.removeChild(row);
         }
-
         function imprimirNota() {
-            // Obter dados do formulário
-            const data = document.getElementById('data').value;
-            const cliente = document.getElementById('cliente').value;
-            const endereco = document.getElementById('endereco').value;
-
-            // Obter dados dos serviços
-            const servicosTableBody = document.getElementById('servicosTableBody');
-            const rows = servicosTableBody.querySelectorAll('tr');
-            const servicos = [];
-
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const tipoServico = cells[0].textContent;
-                const preco = parseFloat(cells[1].textContent.replace('R$ ', ''));
-                servicos.push({ tipoServico, preco });
-            });
-
-            // Calcular o total
-            const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
-
-            function imprimirNota() {
     // Obter dados do formulário
     const data = document.getElementById('data').value;
     const cliente = document.getElementById('cliente').value;
