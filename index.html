@@ -223,6 +223,14 @@
 
             console.log("Nota de Serviço:");
             console.log(notaFormatada);
+
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write('<html><head><title>Nota de Serviço</title></head><body>');
+            printWindow.document.write(`<pre>${notaFormatada}</pre>`);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+
+            printWindow.print();
         }
     </script>
 </body>
