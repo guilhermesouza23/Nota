@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nota de Serviço</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <style>
         a[href^="tel"] {
             color: inherit;
@@ -149,7 +150,6 @@
         <button type="button" class="print-button" onclick="downloadNota()">Download Nota</button>
     </form>
 
-    <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
     <script>
         function adicionarServico() {
             const tipoServico = prompt("Informe o tipo de serviço:");
@@ -224,13 +224,14 @@
 
             alert(notaFormatada);
 
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write('<html><head><title>Nota de Serviço</title></head><body>');
-            printWindow.document.write(`<pre>${notaFormatada}</pre>`);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-
-            printWindow.print();
+            const pdf = new jsPDF();
+            pdf.html(notaFormatada, {
+                callback: function (pdf) {
+                    pdf.save('nota_servico.pdf');
+                },
+                x: 10,
+                y: 10
+            });
         }
 
         function downloadNota() {
@@ -270,10 +271,14 @@
                 Telefone: ${contactInfo}</b></span>
             `;
 
-            const element = document.createElement('div');
-            element.innerHTML = notaFormatada;
-
-            html2pdf(element);
+            const pdf = new jsPDF();
+            pdf.html(notaFormatada, {
+                callback: function (pdf) {
+                    pdf.save('nota_servico.pdf');
+                },
+                x: 10,
+                y: 10
+            });
         }
     </script>
 </body>
