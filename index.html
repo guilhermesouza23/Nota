@@ -101,90 +101,15 @@
             border-radius: 4px;
         }
     </style>
+    <!-- Inclua a biblioteca docxtemplater -->
+    <script src="https://unpkg.com/docxtemplater@3.29.0"></script>
 </head>
 <body>
-    <div id="header">
-        <h1>JOSEMAG Reforma de Máquinas Agrícolas Ltda</h1>
-        <p>Endereço: Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG</p>
-        <p>Tel. Loja: (35) 3334-1120 - Tel. Residencial: (35) 3334-1431</p>
-    </div>
-
-    <div id="services">
-        <li>Serviço de Torno</li>
-        <li>Serviço de Soldas</li>
-        <li>Reforma de Implementos em Geral</li>
-    </div>
-
-    <div id="line"></div>
-
-    <form id="serviceForm">
-        <label for="cliente">Nome:</label>
-        <input type="text" id="cliente" name="cliente" required>
-
-        <label for="data">Data:</label>
-        <input type="date" id="data" name="data" required>
-
-        <label for="contactInfo">Telefone:</label>
-        <input type="tel" id="contactInfo" name="contactInfo" pattern="\(\d{2}\) \d{5}-\d{4}" placeholder="(xx) xxxxx-xxxx" required>
-
-        <div id="line"></div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Tipo de Serviço Prestado</th>
-                    <th>Preço</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="servicosTableBody"></tbody>
-        </table>
-
-        <div id="line"></div>
-
-        <p>Total: R$ <span id="total">0.00</span></p>
-
-        <button type="button" class="print-button" onclick="adicionarServico()">Adicionar Serviço</button>
-        <button type="button" class="print-button" onclick="imprimirNota()">Imprimir Nota</button>
-        <button type="button" class="print-button" onclick="downloadNota()">Download Nota</button>
-    </form>
+    <!-- Seu código HTML existente aqui -->
 
     <script>
-        function adicionarServico() {
-            const tipoServico = prompt("Informe o tipo de serviço:");
-            const preco = parseFloat(prompt("Informe o preço do serviço:").replace(',', '.'));
-
-            if (!isNaN(preco)) {
-                const servicosTableBody = document.getElementById('servicosTableBody');
-                const newRow = servicosTableBody.insertRow();
-                const tipoServicoCell = newRow.insertCell(0);
-                const precoCell = newRow.insertCell(1);
-                const acoesCell = newRow.insertCell(2);
-
-                tipoServicoCell.textContent = tipoServico;
-                precoCell.textContent = `R$ ${preco.toFixed(2)}`;
-                acoesCell.innerHTML = '<button type="button" onclick="removerServico(this)">Remover</button>';
-
-                const totalElement = document.getElementById('total');
-                const totalAtual = parseFloat(totalElement.textContent.replace('R$ ', ''));
-                totalElement.textContent = `R$ ${(totalAtual + preco).toFixed(2)}`;
-            } else {
-                alert('Por favor, insira um preço válido.');
-            }
-        }
-
-        function removerServico(button) {
-            const row = button.parentNode.parentNode;
-            const preco = parseFloat(row.cells[1].textContent.replace('R$ ', ''));
-
-            const totalElement = document.getElementById('total');
-            const totalAtual = parseFloat(totalElement.textContent.replace('R$ ', ''));
-            totalElement.textContent = `R$ ${(totalAtual - preco).toFixed(2)}`;
-
-            row.parentNode.removeChild(row);
-        }
-
-        function imprimirNota() {
+        // Função para baixar nota em formato .docx
+        function downloadNotaDocx() {
             const data = document.getElementById('data').value;
             const cliente = document.getElementById('cliente').value;
             const contactInfo = document.getElementById('contactInfo').value;
@@ -202,73 +127,32 @@
 
             const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
 
-            const notaFormatada = `
-                JOSEMAG Reforma de Máquinas Agrícolas Ltda
+            // Criação do documento docx
+            const doc = new docxtemplater();
+            doc.loadFromZipUrl("caminho-para-o-seu-modelo.docx");  // Substitua pelo caminho correto do modelo .docx
 
-                Endereço: Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG
-                Tel. Loja: (35) 3334-1120 - Tel. Residencial: (35) 3334-1431
-
-                Serviços Prestados:
-                ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('\n')}
-
-                Total: R$ ${total.toFixed(2)}
-
-                Dados do Cliente:
-                Data: ${data}
-                Nome: ${cliente}
-                Telefone: ${contactInfo}
-            `;
-
-            alert(notaFormatada);
-
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write('<html><head><title>Nota de Serviço</title></head><body>');
-            printWindow.document.write(`<pre>${notaFormatada}</pre>`);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-
-            printWindow.print();
-        }
-
-        function downloadNota() {
-            const data = document.getElementById('data').value;
-            const cliente = document.getElementById('cliente').value;
-            const contactInfo = document.getElementById('contactInfo').value;
-
-            const servicosTableBody = document.getElementById('servicosTableBody');
-            const rows = servicosTableBody.querySelectorAll('tr');
-            const servicos = [];
-
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const tipoServico = cells[0].textContent;
-                const preco = parseFloat(cells[1].textContent.replace('R$ ', ''));
-                servicos.push({ tipoServico, preco });
+            // Substitui as tags no modelo com os dados da nota
+            doc.setData({
+                endereco: "Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG",
+                telLoja: "(35) 3334-1120",
+                telResidencial: "(35) 3334-1431",
+                servicos: servicos.map(servico => ({ tipoServico: servico.tipoServico, preco: servico.preco.toFixed(2) })),
+                total: total.toFixed(2),
+                data: data,
+                nome: cliente,
+                telefone: contactInfo
             });
 
-            const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
+            // Renderiza o documento
+            doc.render();
 
-            const notaFormatada = `
-                JOSEMAG Reforma de Máquinas Agrícolas Ltda
+            // Cria um Blob contendo o documento
+            const blob = doc.getZip().generate({ type: "blob" });
 
-                Endereço: Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG
-                Tel. Loja: (35) 3334-1120 - Tel. Residencial: (35) 3334-1431
-
-                Serviços Prestados:
-                ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('\n')}
-
-                Total: R$ ${total.toFixed(2)}
-
-                Dados do Cliente:
-                Data: ${data}
-                Nome: ${cliente}
-                Telefone: ${contactInfo}
-            `;
-
-            const blob = new Blob([notaFormatada], { type: 'text/plain' });
+            // Cria um link de download
             const link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
-            link.download = 'nota_servico.txt';
+            link.download = 'nota_servico.docx';
             link.click();
         }
     </script>
