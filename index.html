@@ -151,15 +151,85 @@
 
     <script>
         function adicionarServico() {
-            // Seu código para adicionar serviço
+            const tipoServico = prompt("Informe o tipo de serviço:");
+            const preco = parseFloat(prompt("Informe o preço do serviço:").replace(',', '.'));
+
+            if (!isNaN(preco)) {
+                const servicosTableBody = document.getElementById('servicosTableBody');
+                const newRow = servicosTableBody.insertRow();
+                const tipoServicoCell = newRow.insertCell(0);
+                const precoCell = newRow.insertCell(1);
+                const acoesCell = newRow.insertCell(2);
+
+                tipoServicoCell.textContent = tipoServico;
+                precoCell.textContent = `R$ ${preco.toFixed(2)}`;
+                acoesCell.innerHTML = '<button type="button" onclick="removerServico(this)">Remover</button>';
+
+                const totalElement = document.getElementById('total');
+                const totalAtual = parseFloat(totalElement.textContent.replace('R$ ', ''));
+                totalElement.textContent = `R$ ${(totalAtual + preco).toFixed(2)}`;
+            } else {
+                alert('Por favor, insira um preço válido.');
+            }
         }
 
         function removerServico(button) {
-            // Seu código para remover serviço
+            const row = button.parentNode.parentNode;
+            const preco = parseFloat(row.cells[1].textContent.replace('R$ ', ''));
+
+            const totalElement = document.getElementById('total');
+            const totalAtual = parseFloat(totalElement.textContent.replace('R$ ', ''));
+            totalElement.textContent = `R$ ${(totalAtual - preco).toFixed(2)}`;
+
+            row.parentNode.removeChild(row);
         }
 
         function imprimirNota() {
-            // Seu código para imprimir a nota
+            const data = document.getElementById('data').value;
+            const cliente = document.getElementById('cliente').value;
+            const contactInfo = document.getElementById('contactInfo').value;
+
+            const servicosTableBody = document.getElementById('servicosTableBody');
+            const rows = servicosTableBody.querySelectorAll('tr');
+            const servicos = [];
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const tipoServico = cells[0].textContent;
+                const preco = parseFloat(cells[1].textContent.replace('R$ ', ''));
+                servicos.push({ tipoServico, preco });
+            });
+
+            const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
+
+            const notaFormatada = `
+                <h1><b>JOSEMAG Reforma de Máquinas Agrícolas Ltda</b><br></h1>
+                <center>
+                <span style="font-size: larger;"><b>Endereço:</b> Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG</span><br>
+                <span style="font-size: larger;"><b>Tel. Loja:</b> (35) 3334-1120 - <b>Tel. Residencial:</b> (35) 3334-1431</span>
+                </center>
+                <hr>
+                <h1>Serviços Prestados:<h1/>
+                <div> ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('\n')}</div>
+                <hr>
+                <h1>Total:<h1> R$ ${total.toFixed(2)}
+                <hr>
+                <h1>Dados do Cliente:</h1><br>
+                <span style="font-size: larger;"><b>
+                Data: ${data}
+                Nome: ${cliente}
+                Telefone: ${contactInfo}</b></span>
+            `;
+
+            alert(notaFormatada);
+
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write('<html><head><title>Nota de Serviço</title></head><body>');
+            printWindow.document.write(`<pre>${notaFormatada}</pre>`);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+
+            printWindow.print();
         }
 
         function downloadNota() {
