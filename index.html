@@ -150,9 +150,36 @@
     </form>
 
     <script>
-        // Seu script JavaScript atual
+        function adicionarServico() {
+            // Seu código para adicionar serviço
+        }
+
+        function removerServico(button) {
+            // Seu código para remover serviço
+        }
+
+        function imprimirNota() {
+            // Seu código para imprimir a nota
+        }
 
         function downloadNota() {
+            const data = document.getElementById('data').value;
+            const cliente = document.getElementById('cliente').value;
+            const contactInfo = document.getElementById('contactInfo').value;
+
+            const servicosTableBody = document.getElementById('servicosTableBody');
+            const rows = servicosTableBody.querySelectorAll('tr');
+            const servicos = [];
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const tipoServico = cells[0].textContent;
+                const preco = parseFloat(cells[1].textContent.replace('R$ ', ''));
+                servicos.push({ tipoServico, preco });
+            });
+
+            const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
+
             const notaFormatada = `
                 <h1><b>JOSEMAG Reforma de Máquinas Agrícolas Ltda</b><br></h1>
                 <center>
