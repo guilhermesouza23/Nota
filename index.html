@@ -6,10 +6,10 @@
     <title>Nota de Serviço</title>
     <style>
         a[href^="tel"] {
-            color: inherit;
-            text-decoration: none;
-            cursor: default;
-        }
+    color: inherit;
+    text-decoration: none;
+    cursor: default;
+}
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -101,9 +101,6 @@
             border-radius: 4px;
         }
     </style>
-    <!-- Inclua a biblioteca docxtemplater -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.28.0/docxtemplater.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.js"></script>
 </head>
 <body>
     <div id="header">
@@ -149,7 +146,6 @@
 
         <button type="button" class="print-button" onclick="adicionarServico()">Adicionar Serviço</button>
         <button type="button" class="print-button" onclick="imprimirNota()">Imprimir Nota</button>
-        <button type="button" class="print-button" onclick="downloadNota()">Download Nota</button>
     </form>
 
     <script>
@@ -206,22 +202,22 @@
             const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
 
             const notaFormatada = `
-                <h1><b>JOSEMAG Reforma de Máquinas Agrícolas Ltda</b><br></h1>
-                <center>
-                <span style="font-size: larger;"><b>Endereço:</b> Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG</span><br>
-                <span style="font-size: larger;"><b>Tel. Loja:</b> (35) 3334-1120 - <b>Tel. Residencial:</b> (35) 3334-1431</span>
-                </center>
-                <hr>
-                <h1>Serviços Prestados:<h1/>
-                <div> ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('\n')}</div>
-                <hr>
-                <h1>Total:<h1> R$ ${total.toFixed(2)}
-                <hr>
-                <h1>Dados do Cliente:</h1><br>
-                <span style="font-size: larger;"><b>
-                Data: ${data}
-                Nome: ${cliente}
-                Telefone: ${contactInfo}</b></span>
+            <h1><b>JOSEMAG Reforma de Máquinas Agrícolas Ltda</b><br></h1>
+            <center>
+            <span style="font-size: larger;"><b>Endereço:</b> Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG</span><br>
+            <span style="font-size: larger;"><b>Tel. Loja:</b> (35) 3334-1120 - <b>Tel. Residencial:</b> (35) 3334-1431</span>
+            </center>
+            <hr>
+            <h1>Serviços Prestados:<h1/>
+            <div> ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('\n')}</div>
+            <hr>
+            <h1>Total:<h1> R$ ${total.toFixed(2)}
+            <hr>
+            <h1>Dados do Cliente:</h1><br>
+            <span style="font-size: larger;"><b>
+            Data: ${data}
+            Nome: ${cliente}
+            Telefone: ${contactInfo}</b></span>
             `;
 
             alert(notaFormatada);
@@ -233,58 +229,6 @@
             printWindow.document.close();
 
             printWindow.print();
-        }
-
-        function downloadNota() {
-            const data = document.getElementById('data').value;
-            const cliente = document.getElementById('cliente').value;
-            const contactInfo = document.getElementById('contactInfo').value;
-
-            const servicosTableBody = document.getElementById('servicosTableBody');
-            const rows = servicosTableBody.querySelectorAll('tr');
-            const servicos = [];
-
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const tipoServico = cells[0].textContent;
-                const preco = parseFloat(cells[1].textContent.replace('R$ ', ''));
-                servicos.push({ tipoServico, preco });
-            });
-
-            const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
-
-            const notaFormatada = `
-                <h1><b>JOSEMAG Reforma de Máquinas Agrícolas Ltda</b><br></h1>
-                <center>
-                <span style="font-size: larger;"><b>Endereço:</b> Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG</span><br>
-                <span style="font-size: larger;"><b>Tel. Loja:</b> (35) 3334-1120 - <b>Tel. Residencial:</b> (35) 3334-1431</span>
-                </center>
-                <hr>
-                <h1>Serviços Prestados:<h1/>
-                <div> ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('\n')}</div>
-                <hr>
-                <h1>Total:<h1> R$ ${total.toFixed(2)}
-                <hr>
-                <h1>Dados do Cliente:</h1><br>
-                <span style="font-size: larger;"><b>
-                Data: ${data}
-                Nome: ${cliente}
-                Telefone: ${contactInfo}</b></span>
-            `;
-
-            // Criação do documento .docx
-            const doc = new docxtemplater();
-            doc.loadFromData(notaFormatada, {});
-
-            // Geração do Blob e Download
-            docxtemplater.plugins.officialFileSaver(doc, {
-                saveCallback: function(blob) {
-                    const link = document.createElement('a');
-                    link.href = URL.createObjectURL(blob);
-                    link.download = 'nota_servico.docx';
-                    link.click();
-                }
-            });
         }
     </script>
 </body>
