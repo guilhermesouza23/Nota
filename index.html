@@ -211,18 +211,16 @@
                 </center>
                 <hr>
                 <h1>Serviços Prestados:<h1/>
-                <div> ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('\n')}</div>
+                <div> ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('<br>')}</div>
                 <hr>
                 <h1>Total:<h1> R$ ${total.toFixed(2)}
                 <hr>
                 <h1>Dados do Cliente:</h1><br>
                 <span style="font-size: larger;"><b>
-                Data: ${data}
-                Nome: ${cliente}
+                Data: ${data}<br>
+                Nome: ${cliente}<br>
                 Telefone: ${contactInfo}</b></span>
             `;
-
-            alert(notaFormatada);
 
             const pdf = new jsPDF();
             pdf.html(notaFormatada, {
@@ -260,14 +258,14 @@
                 </center>
                 <hr>
                 <h1>Serviços Prestados:<h1/>
-                <div> ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('\n')}</div>
+                <div> ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('<br>')}</div>
                 <hr>
                 <h1>Total:<h1> R$ ${total.toFixed(2)}
                 <hr>
                 <h1>Dados do Cliente:</h1><br>
                 <span style="font-size: larger;"><b>
-                Data: ${data}
-                Nome: ${cliente}
+                Data: ${data}<br>
+                Nome: ${cliente}<br>
                 Telefone: ${contactInfo}</b></span>
             `;
 
