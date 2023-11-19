@@ -1,25 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nota de Serviço</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
 
         #header {
             text-align: center;
             padding: 20px 0;
+            background-color: #333;
+            color: #fff;
+        }
+
+        #header h1 {
+            margin: 0;
+        }
+
+        #header p {
+            margin: 5px 0;
         }
 
         #services {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        #contact {
             text-align: center;
             margin-top: 20px;
         }
@@ -29,38 +37,63 @@
             margin: 20px 0;
         }
 
-        @media print {
-            #services,
-            #line,
-            #contact {
-                display: none;
-            }
-
-            body {
-                text-align: left;
-            }
-
-            #header {
-                text-align: left;
-            }
-
-            #serviceForm {
-                margin: 20px;
-            }
-
-            .print-button {
-                display: none;
-            }
+        #serviceForm {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        #contactInfo {
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        #serviceForm label {
+        label {
             display: block;
             margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        #total {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .print-button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -76,7 +109,6 @@
         <li>Serviço de Soldas</li>
         <li>Reforma de Implementos em Geral</li>
     </div>
-
 
     <div id="line"></div>
 
@@ -196,4 +228,5 @@
     </script>
 </body>
 </html>
+```
 
