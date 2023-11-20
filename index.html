@@ -232,6 +232,14 @@
 
             printWindow.print();
         }
+
+        function downloadNota(nota) {
+            const blob = new Blob([nota], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'nota_servico.html';
+            link.click();
+        }
     </script>
 </body>
 </html>
