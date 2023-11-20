@@ -150,7 +150,15 @@
         <button type="button" class="print-button" onclick="imprimirNota()">Imprimir Nota</button>
     </form>
 
+    <script src="https://unpkg.com/imask"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var phoneInput = document.getElementById('contactInfo');
+            var phoneMask = IMask(phoneInput, {
+                mask: '(00) 0 0000-0000'
+            });
+        });
+
         function adicionarServico() {
             const tipoServico = prompt("Informe o tipo de serviço:");
             const preco = parseFloat(prompt("Informe o preço do serviço:").replace(',', '.'));
@@ -233,9 +241,6 @@
     Nome: ${cliente}
     Telefone: ${contactInfo}</b></span>
 `;
-
-
-
 
             console.log("Nota de Serviço:");
             console.log(notaFormatada);
