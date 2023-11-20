@@ -104,14 +104,13 @@
     </style>
 </head>
 <body>
-    <div>
+    <div id="header">
         <center> 
-        <h1>JOSEMAG Reforma de Máquinas Agrícolas Ltda</h1><br>
+        <h1>JOSEMAG Reforma de Máquinas Agrícolas Ltda</h1>
         <p>Endereço: Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG</p>
         <p>Tel. Loja: (35) 3334-1120 - Tel. Residencial: (35) 3334-1431</p>
         </center>
     </div>
-
     <div id="services">
         <li>Serviço de Torno</li>
         <li>Serviço de Soldas</li>
@@ -205,11 +204,12 @@
             const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
 
             const notaFormatada = `
-                <h1><b>JOSEMAG Reforma de Máquinas Agrícolas Ltda</b><br></h1>
-                <center>
-                <span style="font-size: larger;"><b>Endereço:</b> Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG</span><br>
-                <span style="font-size: larger;"><b>Tel. Loja:</b> (35) 3334-1120 - <b>Tel. Residencial:</b> (35) 3334-1431</span>
-                </center>
+                <div id="header">
+        <center> 
+        <h1>JOSEMAG Reforma de Máquinas Agrícolas Ltda</h1>
+        <p>Endereço: Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG</p>
+        <p>Tel. Loja: (35) 3334-1120 - Tel. Residencial: (35) 3334-1431</p>
+        </center>
                 <hr>
                 <h1>Serviços Prestados:<h1/>
                 <div> ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('\n')}</div>
