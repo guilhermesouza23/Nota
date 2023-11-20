@@ -203,26 +203,64 @@
 
             const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
 
-            const notaFormatada = `
-        <center> 
-        <h1>JOSEMAG Reforma de Máquinas Agrícolas Ltda</h1>
-        <p>
-        <strong>Endereço:</strong> Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG
-        <strong>Tel. Loja:</strong> (35) 3334-1120 - <strong>Tel. Residencial:</strong> (35) 3334-1431
-        </p>
-        </center>
-                <hr>
-                <h1>Serviços Prestados:<h1/>
-                <div> ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('\n')}</div>
-                <hr>
-                <h1>Total:<h1> R$ ${total.toFixed(2)}</h1><hr>
-                <h1>Dados do Cliente:</h1>
-                <span style="font-size: larger;"><b>
-                <div>Data: ${data}</div>
-                <div>Nome: ${cliente}</div>
-                <div>Telefone: ${contactInfo}</b></span></div>
-                
-            `;
+           const notaFormatada = `
+    <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 20px;
+                }
+                .header {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                .info {
+                    margin-bottom: 10px;
+                }
+                .services {
+                    margin-bottom: 20px;
+                }
+                .total {
+                    margin-top: 20px;
+                }
+                .customer {
+                    margin-top: 20px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>JOSEMAG Reforma de Máquinas Agrícolas Ltda</h1>
+                <p>
+                    <strong>Endereço:</strong> Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG<br>
+                    <strong>Tel. Loja:</strong> (35) 3334-1120 - <strong>Tel. Residencial:</strong> (35) 3334-1431
+                </p>
+            </div>
+            <hr>
+            <div class="services">
+                <h2>Serviços Prestados:</h2>
+                <ul>
+                    ${servicos.map(servico => `<li>${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}</li>`).join('\n')}
+                </ul>
+            </div>
+            <hr>
+            <div class="total">
+                <h2>Total: R$ ${total.toFixed(2)}</h2>
+            </div>
+            <hr>
+            <div class="customer">
+                <h2>Dados do Cliente:</h2>
+                <div><b>Data:</b> ${data}</div>
+                <div><b>Nome:</b> ${cliente}</div>
+                <div><b>Telefone:</b> ${contactInfo}</div>
+            </div>
+        </body>
+    </html>
+`;
+
+// Agora você pode usar a variável notaFormatada para imprimir ou exibir a nota.
+
 
             console.log("Nota de Serviço:");
             console.log(notaFormatada);
