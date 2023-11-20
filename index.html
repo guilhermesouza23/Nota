@@ -102,8 +102,6 @@
             border-radius: 4px;
         }
     </style>
-    <!-- Incluindo a biblioteca html2pdf -->
-    <script src="https://unpkg.com/html2pdf.js"></script>
 </head>
 <body>
     <div id="header">
@@ -233,19 +231,6 @@
             printWindow.document.close();
 
             printWindow.print();
-        }
-
-        function downloadNotaPDF(nota) {
-            const element = document.createElement('div');
-            element.innerHTML = nota;
-
-            html2pdf(element, {
-                margin: 10,
-                filename: 'nota_servico.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            });
         }
     </script>
 </body>
