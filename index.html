@@ -203,72 +203,64 @@
 
             const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
 
-           const notaFormatada = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            width: 21cm;
-            height: 29.7cm;
-            margin: 2cm auto 1cm auto; /* Margens superior e inferior ajustadas */
-            padding: 1.5cm;
-            border: 1px solid #ccc;
-        }
+          const notaFormatada = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                width: 21cm;
+                height: 29.7cm;
+                margin: 2cm auto 1cm auto;
+                padding: 1.5cm;
+                border: 1px solid #ccc;
+            }
 
-        .header {
-            text-align: center;
-            margin-bottom: 10px;
-        }
+            h1, h2 {
+                text-align: center;
+            }
 
-        .services {
-            margin-top: 10px; /* Ajuste na margem superior do bloco de serviços */
-            margin-bottom: 20px;
-        }
+            span {
+                font-size: larger;
+            }
 
-        .total {
-            margin-top: 20px;
-        }
+            ul {
+                list-style: none;
+                padding: 0;
+            }
 
-        .customer {
-            margin-top: 20px;
-        }
-    </style>
-    <title>Nota de Serviço</title>
-</head>
-<body>
-    <div class="header">
-        <h1>JOSEMAG Reforma de Máquinas Agrícolas Ltda</h1>
-        <p>
-            <strong>Endereço:</strong> Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG<br>
-            <strong>Tel. Loja:</strong> (35) 3334-1120 - <strong>Tel. Residencial:</strong> (35) 3334-1431
-        </p>
-    </div>
-    <hr>
-    <div class="services">
+            li {
+                margin-bottom: 5px;
+            }
+        </style>
+        <title>Nota de Serviço</title>
+    </head>
+    <body>
+        <h1><b>JOSEMAG Reforma de Máquinas Agrícolas Ltda</b></h1>
+        <center>
+            <span><b>Endereço:</b> Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG</span><br>
+            <span><b>Tel. Loja:</b> (35) 3334-1120 - <b>Tel. Residencial:</b> (35) 3334-1431</span>
+        </center>
+        <hr>
         <h2>Serviços Prestados:</h2>
         <ul>
             ${servicos.map(servico => `<li>${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}</li>`).join('\n')}
         </ul>
-    </div>
-    <hr>
-    <div class="total">
+        <hr>
         <h2>Total: R$ ${total.toFixed(2)}</h2>
-    </div>
-    <hr>
-    <div class="customer">
-        <h1>Dados do Cliente:</h1>
-        <b>Data:</b> ${data}
-        <b>Nome:</b> ${cliente}
-        <b>Telefone:</b> ${contactInfo}
-    </div>
-</body>
-</html>
-`
+        <hr>
+        <h2>Dados do Cliente:</h2>
+        <span><b>Data:</b> ${data}</span><br>
+        <span><b>Nome:</b> ${cliente}</span><br>
+        <span><b>Telefone:</b> ${contactInfo}</span>
+    </body>
+    </html>
+`;
+
 // Agora você pode usar a variável notaFormatada para imprimir ou exibir a nota.
 
 
