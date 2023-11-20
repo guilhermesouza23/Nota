@@ -204,7 +204,7 @@
             const total = servicos.reduce((acc, servico) => acc + servico.preco, 0);
 
            const notaFormatada = `
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -215,21 +215,18 @@
             font-family: Arial, sans-serif;
             width: 21cm;
             height: 29.7cm;
-            margin: 1cm auto;
+            margin: 2cm auto 1cm auto; /* Margens superior e inferior ajustadas */
             padding: 1.5cm;
             border: 1px solid #ccc;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 10px; /* Reduzi a margem superior do título */
-        }
-
-        .info {
             margin-bottom: 10px;
         }
 
         .services {
+            margin-top: 10px; /* Ajuste na margem superior do bloco de serviços */
             margin-bottom: 20px;
         }
 
@@ -245,7 +242,7 @@
 </head>
 <body>
     <div class="header">
-        <h1 style="margin: 0;">JOSEMAG Reforma de Máquinas Agrícolas Ltda</h1>
+        <h1>JOSEMAG Reforma de Máquinas Agrícolas Ltda</h1>
         <p>
             <strong>Endereço:</strong> Av. Francisco Dias de Castro, 975 - Carmo de Minas - MG<br>
             <strong>Tel. Loja:</strong> (35) 3334-1120 - <strong>Tel. Residencial:</strong> (35) 3334-1431
@@ -271,7 +268,6 @@
     </div>
 </body>
 </html>
-
 `
 // Agora você pode usar a variável notaFormatada para imprimir ou exibir a nota.
 
