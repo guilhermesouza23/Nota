@@ -212,12 +212,11 @@
                 </center>
                 <hr>
                 <h1>Serviços Prestados:<h1/>
-                <div> ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('\n')}
+                <div> ${servicos.map(servico => `- ${servico.tipoServico} : R$ ${servico.preco.toFixed(2)}`).join('\n')}</div>
                 <hr>
-                <h1>Total:<h1> R$ ${total.toFixed(2)}
-                <hr>
+                <h1>Total:<h1> R$ ${total.toFixed(2)}</h1><hr>
                 <h1>Dados do Cliente:</h1><br>
-                <span style="font-size: larger;"><b>
+                <div> <span style="font-size: larger;"><b>
                 Data: ${data}
                 Nome: ${cliente}
                 Telefone: ${contactInfo}</b></span></div>
